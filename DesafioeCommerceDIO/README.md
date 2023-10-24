@@ -36,26 +36,35 @@ Aqui estão alguns exemplos de consultas SQL que podem ser usadas para analisar 
 
 Aqui estão alguns exemplos de consultas SQL que podem ser usadas para analisar os dados do banco de dados "Ecommerce":
 
- ```sql   
 -- Selecionar todos os registros da tabela de produtos vendidos
+ ```sql   
    SELECT * FROM productSeller;
+ ```
 
 -- Selecionar clientes e pedidos correspondentes
+ ```sql 
 SELECT * FROM clients c, orders o WHERE c.idClient = idOrderClient;
+ ```
 
 -- Selecionar nomes de clientes e status de pedidos
+ ```sql  
 SELECT CONCAT(Fname, ' ', Lname) AS Client, idOrder AS Request, orderStatus AS Status
 FROM clients c, orders o WHERE c.idClient = idOrderClient;
+ ```
 
 -- Inserir um novo pedido
+ ```sql 
 INSERT INTO orders (idOrderClient, orderStatus, orderDescription, sendValue, paymentCash)
 VALUES (2, DEFAULT, 'compra via aplicativo', NULL, 1);
+ ```
 
 -- Contagem de pedidos por cliente
+ ```sql 
 SELECT c.idClient, Fname, COUNT(*) AS Number_of_orders
 FROM clients c
 INNER JOIN orders o ON c.idClient = o.idOrderClient
 GROUP BY idClient;
+ ```
 
 Conclusão
 Este banco de dados "Ecommerce" é útil para rastrear pedidos, produtos, clientes e fornecedores em um ambiente de comércio eletrônico. As consultas SQL fornecidas são exemplos de como extrair informações valiosas para análise e tomada de decisões. O conhecimento e o uso adequado dessas consultas são essenciais para gerenciar eficazmente operações de comércio eletrônico.
