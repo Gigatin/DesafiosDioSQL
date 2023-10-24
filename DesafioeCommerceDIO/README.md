@@ -66,6 +66,59 @@ INNER JOIN orders o ON c.idClient = o.idOrderClient
 GROUP BY idClient;
  ```
 
+-- Seleciona produtos em estoque
+ ```sql 
+SELECT Pname, size, quantity
+FROM product p
+INNER JOIN productStorage ps ON p.idProduct = ps.idLproduct
+WHERE quantity > 0;
+ ```
+
+-- Calcula o valor total de pedidos confirmados
+ ```sql 
+SELECT SUM(sendValue) AS TotalValue
+FROM orders
+WHERE orderStatus = 'confirmado';
+
+ ```
+
+## Exemplos de Triggers que pensei para esse projeto
+
+
+-- Trigger para atualizar o estoque
+ ```sql 
+CREATE TRIGGER update_stock
+AFTER INSERT ON productOrder
+FOR EACH ROW
+BEGIN
+    DECLARE product_quantity INT;
+    SELECT quantity INTO product_quantity
+    FROM productStorage
+    WHERE idProdstorage = NEW.idPOproduct;
+    
+    IF product_quantity >= NEW.poQuantity THEN
+        UPDATE productStorage
+        SET quantity = quantity - NEW.poQuantity
+        WHERE idProdstorage = NEW.idPOproduct;
+    ELSE
+        -- Ação a ser tomada se o estoque for insuficiente
+        -- Pode ser um log de erro ou um aviso.
+    END IF;
+END;
+ ```
+
+-- Trigger para calcular a media de avaliação dos produtos
+ ```sql 
+CREATE TRIGGER calculate_average_rating
+AFTER INSERT ON productOrder
+FOR EACH ROW
+BEGIN
+    UPDATE product
+    SET avaliacao = (avaliacao * 0.8) + (NEW.poQuantity * 0.2)
+    WHERE idProduct = NEW.idPOproduct;
+END;
+ ```
+
 Conclusão
 Este banco de dados "Ecommerce" é útil para rastrear pedidos, produtos, clientes e fornecedores em um ambiente de comércio eletrônico. As consultas SQL fornecidas são exemplos de como extrair informações valiosas para análise e tomada de decisões. O conhecimento e o uso adequado dessas consultas são essenciais para gerenciar eficazmente operações de comércio eletrônico.
 
