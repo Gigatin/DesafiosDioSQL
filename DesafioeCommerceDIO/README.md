@@ -36,10 +36,9 @@ Aqui estão alguns exemplos de consultas SQL que podem ser usadas para analisar 
 
 Aqui estão alguns exemplos de consultas SQL que podem ser usadas para analisar os dados do banco de dados "Ecommerce":
 
-    
+ ```sql   
 -- Selecionar todos os registros da tabela de produtos vendidos
-    ```sql
-SELECT * FROM productSeller;
+   SELECT * FROM productSeller;
 
 -- Selecionar clientes e pedidos correspondentes
 SELECT * FROM clients c, orders o WHERE c.idClient = idOrderClient;
