@@ -32,23 +32,27 @@ O banco de dados "Ecommerce" é composto pelas seguintes tabelas:
 
 Aqui estão alguns exemplos de consultas SQL que podem ser usadas para analisar os dados do banco de dados "Ecommerce":
 
-1. **Selecionar todos os registros da tabela de produtos vendidos:**
+## Exemplos de Consultas SQL
 
-   ```sql
-   SELECT * FROM productSeller;
-   
-Selecionar clientes e pedidos correspondentes:
+Aqui estão alguns exemplos de consultas SQL que podem ser usadas para analisar os dados do banco de dados "Ecommerce":
+
+    
+-- Selecionar todos os registros da tabela de produtos vendidos
+    ```sql
+SELECT * FROM productSeller;
+
+-- Selecionar clientes e pedidos correspondentes
 SELECT * FROM clients c, orders o WHERE c.idClient = idOrderClient;
 
-Selecionar nomes de clientes e status de pedidos:
+-- Selecionar nomes de clientes e status de pedidos
 SELECT CONCAT(Fname, ' ', Lname) AS Client, idOrder AS Request, orderStatus AS Status
 FROM clients c, orders o WHERE c.idClient = idOrderClient;
 
-Inserir um novo pedido:
+-- Inserir um novo pedido
 INSERT INTO orders (idOrderClient, orderStatus, orderDescription, sendValue, paymentCash)
 VALUES (2, DEFAULT, 'compra via aplicativo', NULL, 1);
 
-Contagem de pedidos por cliente:
+-- Contagem de pedidos por cliente
 SELECT c.idClient, Fname, COUNT(*) AS Number_of_orders
 FROM clients c
 INNER JOIN orders o ON c.idClient = o.idOrderClient
